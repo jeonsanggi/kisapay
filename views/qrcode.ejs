@@ -1,0 +1,24 @@
+<div id="qrcode"></div>
+<script type="text/javascript" src="qrcode.min.js"></script>
+<script type="text/javascript" src="qrcode.js"></script>
+<script type="text/javascript" src="instascan.min.js"></script>
+<script type="text/javascript">
+new QRCode(document.getElementById("qrcode"), "http://www.naver.com");
+</script>
+
+<video id="preview" style="width: 100%; height:100%; margin-top: 25vh"  ></video>
+<script type="text/javascript">
+    let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
+    scanner.addListener('scan', function (content) {
+        console.log(content);
+    });
+    Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+            scanner.start(cameras[0]);
+        } else {
+            console.error('No cameras found.');
+        }
+    }).catch(function (e) {
+        console.error(e);
+    });
+</script>
